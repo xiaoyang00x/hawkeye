@@ -814,6 +814,76 @@ public class ProjectExample {
             addCriterion("group not between", value1, value2, "group");
             return (Criteria) this;
         }
+
+        public Criteria andScanPathIsNull() {
+            addCriterion("scan_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathIsNotNull() {
+            addCriterion("scan_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathEqualTo(String value) {
+            addCriterion("scan_path =", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathNotEqualTo(String value) {
+            addCriterion("scan_path <>", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathGreaterThan(String value) {
+            addCriterion("scan_path >", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathGreaterThanOrEqualTo(String value) {
+            addCriterion("scan_path >=", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathLessThan(String value) {
+            addCriterion("scan_path <", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathLessThanOrEqualTo(String value) {
+            addCriterion("scan_path <=", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathLike(String value) {
+            addCriterion("scan_path like", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathNotLike(String value) {
+            addCriterion("scan_path not like", value, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathIn(List<String> values) {
+            addCriterion("scan_path in", values, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathNotIn(List<String> values) {
+            addCriterion("scan_path not in", values, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathBetween(String value1, String value2) {
+            addCriterion("scan_path between", value1, value2, "scanPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andScanPathNotBetween(String value1, String value2) {
+            addCriterion("scan_path not between", value1, value2, "scanPath");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

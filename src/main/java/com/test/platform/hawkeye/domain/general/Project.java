@@ -25,6 +25,8 @@ public class Project {
 
     private Integer group;
 
+    private String scanPath;
+
     public Integer getId() {
         return id;
     }
@@ -111,5 +113,13 @@ public class Project {
 
     public void setGroup(Integer group) {
         this.group = group;
+    }
+
+    public String getScanPath() {
+        return scanPath;
+    }
+
+    public void setScanPath(String scanPath) {
+        this.scanPath = scanPath == null ? null : scanPath.trim();
     }
 }

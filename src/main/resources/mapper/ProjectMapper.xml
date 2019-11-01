@@ -13,6 +13,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="group" jdbcType="INTEGER" property="group" />
+    <result column="scan_path" jdbcType="VARCHAR" property="scanPath" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, description, branch, git, type, operator, create_time, update_time, is_delete, 
-    group
+    group, scan_path
   </sql>
   <select id="selectByExample" parameterType="com.test.platform.hawkeye.domain.general.ProjectExample" resultMap="BaseResultMap">
     select
@@ -103,11 +104,11 @@
     insert into he_project (name, description, branch, 
       git, type, operator, 
       create_time, update_time, is_delete, 
-      group)
+      group, scan_path)
     values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{branch,jdbcType=VARCHAR}, 
       #{git,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER}, 
-      #{group,jdbcType=INTEGER})
+      #{group,jdbcType=INTEGER}, #{scanPath,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.test.platform.hawkeye.domain.general.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -145,6 +146,9 @@
       <if test="group != null">
         group,
       </if>
+      <if test="scanPath != null">
+        scan_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -176,6 +180,9 @@
       </if>
       <if test="group != null">
         #{group,jdbcType=INTEGER},
+      </if>
+      <if test="scanPath != null">
+        #{scanPath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="record.group != null">
         group = #{record.group,jdbcType=INTEGER},
       </if>
+      <if test="record.scanPath != null">
+        scan_path = #{record.scanPath,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -238,7 +248,8 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
-      group = #{record.group,jdbcType=INTEGER}
+      group = #{record.group,jdbcType=INTEGER},
+      scan_path = #{record.scanPath,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
