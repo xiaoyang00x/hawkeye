@@ -9,7 +9,7 @@
         <commentGenerator>
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="true"/>
+            <property name="suppressAllComments" value=""/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码
            1.一般jdbc数据库的版本6.x以上，都是com.mysql.cj.jdbc.Driver  其他的低版本就是com.mysql.cj.jdbc.Driver
@@ -34,9 +34,24 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.test.platform.hawkeye.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
+
+
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="he_auto_case" domainObjectName="AutoCase">
+            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="he_auto_case_interface" domainObjectName="AutoCaseInterface">
+            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="he_interface" domainObjectName="Interface">
+            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
+        </table>
         <table tableName="he_project" domainObjectName="Project">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
+        <table tableName="he_project_analysis" domainObjectName="ProjectAnalysis">
+            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
+        </table>
+
     </context>
 </generatorConfiguration>
