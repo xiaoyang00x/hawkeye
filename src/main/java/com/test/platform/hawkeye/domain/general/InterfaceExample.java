@@ -575,63 +575,63 @@ public class InterfaceExample {
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeIsNull() {
-            addCriterion("ceeate_time is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeIsNotNull() {
-            addCriterion("ceeate_time is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeEqualTo(Date value) {
-            addCriterion("ceeate_time =", value, "ceeateTime");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeNotEqualTo(Date value) {
-            addCriterion("ceeate_time <>", value, "ceeateTime");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeGreaterThan(Date value) {
-            addCriterion("ceeate_time >", value, "ceeateTime");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("ceeate_time >=", value, "ceeateTime");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeLessThan(Date value) {
-            addCriterion("ceeate_time <", value, "ceeateTime");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("ceeate_time <=", value, "ceeateTime");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeIn(List<Date> values) {
-            addCriterion("ceeate_time in", values, "ceeateTime");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeNotIn(List<Date> values) {
-            addCriterion("ceeate_time not in", values, "ceeateTime");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeBetween(Date value1, Date value2) {
-            addCriterion("ceeate_time between", value1, value2, "ceeateTime");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCeeateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("ceeate_time not between", value1, value2, "ceeateTime");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
@@ -752,6 +752,66 @@ public class InterfaceExample {
 
         public Criteria andRequestTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("request_type not between", value1, value2, "requestType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeIsNull() {
+            addCriterion("is_exclude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeIsNotNull() {
+            addCriterion("is_exclude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeEqualTo(Integer value) {
+            addCriterion("is_exclude =", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeNotEqualTo(Integer value) {
+            addCriterion("is_exclude <>", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeGreaterThan(Integer value) {
+            addCriterion("is_exclude >", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_exclude >=", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeLessThan(Integer value) {
+            addCriterion("is_exclude <", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeLessThanOrEqualTo(Integer value) {
+            addCriterion("is_exclude <=", value, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeIn(List<Integer> values) {
+            addCriterion("is_exclude in", values, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeNotIn(List<Integer> values) {
+            addCriterion("is_exclude not in", values, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeBetween(Integer value1, Integer value2) {
+            addCriterion("is_exclude between", value1, value2, "isExclude");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExcludeNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_exclude not between", value1, value2, "isExclude");
             return (Criteria) this;
         }
     }

@@ -37,21 +37,21 @@
 
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="he_auto_case" domainObjectName="AutoCase">
-            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
-        </table>
-        <table tableName="he_auto_case_interface" domainObjectName="AutoCaseInterface">
-            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
-        </table>
+<!--        <table tableName="he_auto_case" domainObjectName="AutoCase">-->
+<!--            <generatedKey column="id" sqlStatement="mysql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="he_auto_case_interface" domainObjectName="AutoCaseInterface">-->
+<!--            <generatedKey column="id" sqlStatement="mysql" identity="true"/>-->
+<!--        </table>-->
         <table tableName="he_interface" domainObjectName="Interface">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
-        <table tableName="he_project" domainObjectName="Project">
-            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
-        </table>
-        <table tableName="he_project_analysis" domainObjectName="ProjectAnalysis">
-            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
-        </table>
+<!--        <table tableName="he_project" domainObjectName="Project">-->
+<!--            <generatedKey column="id" sqlStatement="mysql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="he_project_analysis" domainObjectName="ProjectAnalysis">-->
+<!--            <generatedKey column="id" sqlStatement="mysql" identity="true"/>-->
+<!--        </table>-->
 
     </context>
 </generatorConfiguration>

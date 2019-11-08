@@ -52,6 +52,14 @@
 		</dependency>
 
 
+		<!--spoon-->
+		<dependency>
+			<groupId>fr.inria.gforge.spoon</groupId>
+			<artifactId>spoon-core</artifactId>
+			<version>7.6.0</version>
+		</dependency>
+
+
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -64,6 +72,9 @@
 			<artifactId>mybatis-generator-core</artifactId>
 			<version>1.3.7</version>
 		</dependency>
+
+
+
 
 	</dependencies>
 
