@@ -24,4 +24,7 @@ public class InterfaceServiceImpl implements InterfaceService {
     public int saveInterface(List<Interface> list) {
         return 0;
     }
+
+
+
 }

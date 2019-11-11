@@ -3,9 +3,12 @@ package com.test.platform.hawkeye.processor;
 import com.test.platform.hawkeye.domain.general.Interface;
 import com.test.platform.hawkeye.domain.general.Test;
 import com.test.platform.hawkeye.service.InterfaceService;
+import com.test.platform.hawkeye.service.UserService;
 import com.test.platform.hawkeye.utils.DateTimeUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import spoon.processing.AbstractProcessor;
@@ -25,10 +28,15 @@ import java.util.Set;
 /**
  * http收集器
  */
+
+@Service
 public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
     @Autowired
     InterfaceService interfaceService;
+
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -46,12 +54,16 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
     @Override
     public void process(CtClass ctClass) {
 
+        String path = null;
+
         List<Interface> interfaceList = new ArrayList<Interface>();
         String classAnnotation = "";
         List<CtAnnotation<? extends Annotation>> list = ctClass.getAnnotations();
         for (CtAnnotation ctAnnotation : list) {
-            if (ctAnnotation.getAnnotationType().getSimpleName().equals( RequestMapping.class.getSimpleName() ))
+            if (ctAnnotation.getAnnotationType().getSimpleName().equals( RequestMapping.class.getSimpleName() )) {
                 classAnnotation = ctAnnotation.getAllValues().get( "value" ).toString().replace( "\"", "" );
+            }
+
         }
 
 
@@ -59,15 +71,48 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
         for (CtMethod<?> set :
                 ctMethodsSet) {
             Interface in = new Interface();
+
             if (set.getAnnotation( RequestMapping.class ) != null) {
-                //set path
-                in.setPath( classAnnotation + set.getAnnotation( RequestMapping.class ).value()[0] );
 
                 if (!StringUtils.isEmpty( set.getAnnotation( RequestMapping.class ).method() ) && set.getAnnotation( RequestMapping.class ).method().length > 0) {
 
-                    int requestType = RequestMethod.POST.toString().equals( set.getAnnotation( RequestMapping.class ).method()[0].toString() ) ? 1 : 2;
 
-                    //set requesttype 1post 2get 0无
+                    //set requestType
+                    int requestType;
+                    switch (set.getAnnotation( RequestMapping.class ).method()[0].toString()) {
+                        case "GET":
+                            requestType = 1;
+                            break;
+
+                        case "POST":
+                            requestType = 2;
+                            break;
+
+                        case "DELTE":
+                            requestType = 3;
+                            break;
+
+                        case "PATCH":
+                            requestType = 4;
+                            break;
+
+                        case "OPTIONS":
+                            requestType = 5;
+                            break;
+
+                        case "HEAD":
+                            requestType = 6;
+                            break;
+
+                        case "TRACE":
+                            requestType = 7;
+                            break;
+
+                        default:
+                            //默认没配置method,该接口支持所有请求方式
+                            requestType = 0;
+
+                    }
                     in.setRequestType( requestType );
 
                 }
@@ -78,7 +123,8 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
                 if (set.getAnnotation( PostMapping.class ) != null)
                     in.setRequestType( 1 );
 
-                //set projectId
+
+                //set projectId 后期修改为对应的项目id
                 in.setProjectId( 0 );
 
                 //set method name
@@ -91,7 +137,32 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
                 in.setCreateTime( DateTimeUtil.getCurrentDateTIme() );
 
 
-                interfaceList.add( in );
+                //set path
+                try {
+
+                    classAnnotation = classAnnotation.replace( "{", "" ).replace( "}", "" );
+                    String pathArr[] = classAnnotation.split( "," );
+
+
+                    //处理特殊RequestMapping eg:@RequestMapping({"/inner/mobile/card", "/mobile/card"})
+                    if (pathArr.length > 1) {
+                        for (String pathstr :
+                                pathArr) {
+                            in.setPath( (pathstr + "/" + set.getAnnotation( RequestMapping.class ).value()[0]).replace( "//", "/" ).replace( "///", "/" ).replace( " ", "" ) );
+                            Interface interfaceTemp = new Interface();
+                            BeanUtils.copyProperties( in, interfaceTemp );
+                            interfaceList.add( interfaceTemp );
+                        }
+                    } else {
+                        in.setPath( (classAnnotation + "/" + set.getAnnotation( RequestMapping.class ).value()[0]).replace( "//", "/" ).replace( "///", "/" ).replace( " ", "" ) );
+                        interfaceList.add( in );
+                    }
+
+
+                } catch (Exception e) {
+                    continue;
+                }
+
             }
 
         }
@@ -99,8 +170,10 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
         for (Interface record :
                 interfaceList) {
             System.out.println( record.toString() );
+            interfaceService.saveInterface( record );
 
         }
 
     }
+
 }
