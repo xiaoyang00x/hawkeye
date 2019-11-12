@@ -21,11 +21,15 @@ public class ProcessorFactory {
     @Autowired
     HttpClassProcessor httpClassProcessor;
 
+    @Autowired
+    AutoClassProcessor autoClassProcessor;
+
+
     public void InitProcessor(ProcessorEnum processorEnum) throws IllegalAccessException, InstantiationException {
         SpoonAPI spoon = new Launcher();
 
         //添加需要解析的类文件或者文件夹
-        spoon.addInputResource( "/Users/yangyu/code/rd/unify-mobile" );
+        spoon.addInputResource( "/Users/yangyu/code/test/benmu_auto_test/src/test/java/com/benmu" );
         //添加解析后输出的文件夹
         spoon.setSourceOutputDirectory( "target/spoon" );
         //运行解析
@@ -43,6 +47,7 @@ public class ProcessorFactory {
             case "RPC":
                 break;
             default:
+                processingManager.addProcessor( autoClassProcessor );
                 break;
         }
 

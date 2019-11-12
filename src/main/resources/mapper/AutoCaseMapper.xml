@@ -17,6 +17,7 @@
     <result column="case_grade" jdbcType="INTEGER" property="caseGrade" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.test.platform.hawkeye.domain.general.AutoCase">
     <!--

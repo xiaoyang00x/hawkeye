@@ -1,7 +1,6 @@
 package com.test.platform.hawkeye.processor;
 
 import com.test.platform.hawkeye.domain.general.Interface;
-import com.test.platform.hawkeye.domain.general.Test;
 import com.test.platform.hawkeye.service.InterfaceService;
 import com.test.platform.hawkeye.service.UserService;
 import com.test.platform.hawkeye.utils.DateTimeUtil;
@@ -34,9 +33,6 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
     @Autowired
     InterfaceService interfaceService;
-
-    @Autowired
-    UserService userService;
 
 
     @Override
@@ -167,9 +163,9 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
         }
 
+        //不用insert list方式，在逻辑层进行日志收集，记录插入失败项
         for (Interface record :
                 interfaceList) {
-            System.out.println( record.toString() );
             interfaceService.saveInterface( record );
 
         }
