@@ -845,63 +845,63 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andGroupIsNull() {
-            addCriterion("group is null");
+        public Criteria andTeamGroupIsNull() {
+            addCriterion("team_group is null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIsNotNull() {
-            addCriterion("group is not null");
+        public Criteria andTeamGroupIsNotNull() {
+            addCriterion("team_group is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupEqualTo(Integer value) {
-            addCriterion("group =", value, "group");
+        public Criteria andTeamGroupEqualTo(Integer value) {
+            addCriterion("team_group =", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotEqualTo(Integer value) {
-            addCriterion("group <>", value, "group");
+        public Criteria andTeamGroupNotEqualTo(Integer value) {
+            addCriterion("team_group <>", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupGreaterThan(Integer value) {
-            addCriterion("group >", value, "group");
+        public Criteria andTeamGroupGreaterThan(Integer value) {
+            addCriterion("team_group >", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupGreaterThanOrEqualTo(Integer value) {
-            addCriterion("group >=", value, "group");
+        public Criteria andTeamGroupGreaterThanOrEqualTo(Integer value) {
+            addCriterion("team_group >=", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupLessThan(Integer value) {
-            addCriterion("group <", value, "group");
+        public Criteria andTeamGroupLessThan(Integer value) {
+            addCriterion("team_group <", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupLessThanOrEqualTo(Integer value) {
-            addCriterion("group <=", value, "group");
+        public Criteria andTeamGroupLessThanOrEqualTo(Integer value) {
+            addCriterion("team_group <=", value, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIn(List<Integer> values) {
-            addCriterion("group in", values, "group");
+        public Criteria andTeamGroupIn(List<Integer> values) {
+            addCriterion("team_group in", values, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotIn(List<Integer> values) {
-            addCriterion("group not in", values, "group");
+        public Criteria andTeamGroupNotIn(List<Integer> values) {
+            addCriterion("team_group not in", values, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupBetween(Integer value1, Integer value2) {
-            addCriterion("group between", value1, value2, "group");
+        public Criteria andTeamGroupBetween(Integer value1, Integer value2) {
+            addCriterion("team_group between", value1, value2, "teamGroup");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotBetween(Integer value1, Integer value2) {
-            addCriterion("group not between", value1, value2, "group");
+        public Criteria andTeamGroupNotBetween(Integer value1, Integer value2) {
+            addCriterion("team_group not between", value1, value2, "teamGroup");
             return (Criteria) this;
         }
 

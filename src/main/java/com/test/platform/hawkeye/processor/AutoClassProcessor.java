@@ -8,6 +8,7 @@ import com.test.platform.hawkeye.utils.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtClass;
@@ -22,7 +23,9 @@ import java.util.Set;
  * autocase收集器
  */
 
+
 @Service
+@Transactional
 public class AutoClassProcessor extends AbstractProcessor<CtClass> {
 
 

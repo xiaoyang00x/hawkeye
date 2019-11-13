@@ -8,6 +8,8 @@ import com.test.platform.hawkeye.service.AutoCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AutoCaseServiceImpl implements AutoCaseService {
@@ -25,5 +27,12 @@ public class AutoCaseServiceImpl implements AutoCaseService {
         AutoCaseExample autoCaseExample = new AutoCaseExample();
         autoCaseExample.createCriteria().andIdEqualTo( id );
         return autoCaseMapper.selectByExampleWithBLOBs( autoCaseExample ).get( 0 );
+    }
+
+    @Override
+    public List<AutoCase> getAutoCaseByPath(String path) {
+        AutoCaseExample autoCaseExample = new AutoCaseExample();
+        autoCaseExample.createCriteria().andPathEqualTo( path );
+        return autoCaseMapper.selectByExampleWithBLOBs( autoCaseExample );
     }
 }

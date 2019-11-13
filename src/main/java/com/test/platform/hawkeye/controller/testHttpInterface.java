@@ -6,6 +6,7 @@ import com.test.platform.hawkeye.domain.general.AutoCase;
 import com.test.platform.hawkeye.processor.HttpClassProcessor;
 import com.test.platform.hawkeye.processor.ProcessorFactory;
 import com.test.platform.hawkeye.service.AutoCaseService;
+import com.test.platform.hawkeye.service.MatchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import spoon.Launcher;
-import spoon.SpoonAPI;
-import spoon.processing.AbstractProcessor;
-import spoon.processing.ProcessingManager;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.factory.Factory;
-import spoon.support.QueueProcessingManager;
 
 @RequestMapping("/testInterface")
 @RestController
@@ -34,6 +28,10 @@ public class testHttpInterface {
 
     @Autowired
     AutoCaseService autoCaseService;
+
+
+    @Autowired
+    MatchService matchService;
 
 
     @RequestMapping(value = "/testHttp", method = RequestMethod.GET)
@@ -64,6 +62,19 @@ public class testHttpInterface {
 
         AutoCase autoCase = autoCaseService.getAutoCaseById( i );
         return autoCase.toString();
+
+    }
+
+    @RequestMapping(value = "/getMatch", method = RequestMethod.GET)
+    public String GetMatch() throws Exception {
+        logger.info( "进入到GetMatch" );
+
+        matchService.matchnIcrement( 1 );
+        //matchService.matchnIcrement( 2 );
+        //matchService.matchnTotalQuantity( 1 );
+        //matchService.matchnTotalQuantity( 2 );
+
+        return "执行完成";
 
     }
 
