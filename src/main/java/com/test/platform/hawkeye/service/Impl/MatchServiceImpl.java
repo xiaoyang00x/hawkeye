@@ -17,7 +17,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class MatchServiceImpl implements MatchService {
 
     protected static final Logger logger = LoggerFactory.getLogger( MatchServiceImpl.class );
@@ -42,6 +41,7 @@ public class MatchServiceImpl implements MatchService {
      */
 
     @Override
+    @Transactional
     public void matchnIcrement(int rdProjectId) {
 
 
@@ -92,6 +92,7 @@ public class MatchServiceImpl implements MatchService {
      */
 
     @Override
+    @Transactional
     public void matchnTotalQuantity(int rdProjectId) {
 
         Project project = projectService.getProjectById( rdProjectId );
@@ -110,6 +111,10 @@ public class MatchServiceImpl implements MatchService {
         //通过rdProjectId把is_auto全部制为未自动化
 
         interfaceService.updateIsAutoFalse( interfacesList );
+
+        //删除该rdProjectId下的所有关联关系
+
+        autoCaseInterfaceService.deleteAutoCaseInterfaceByProjectId( rdProjectId );
 
 
         //遍历interface

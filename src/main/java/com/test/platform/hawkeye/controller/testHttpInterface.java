@@ -69,10 +69,10 @@ public class testHttpInterface {
     public String GetMatch() throws Exception {
         logger.info( "进入到GetMatch" );
 
-        matchService.matchnIcrement( 1 );
+        //matchService.matchnIcrement( 1 );
         //matchService.matchnIcrement( 2 );
         //matchService.matchnTotalQuantity( 1 );
-        //matchService.matchnTotalQuantity( 2 );
+        matchService.matchnTotalQuantity( 2 );
 
         return "执行完成";
 

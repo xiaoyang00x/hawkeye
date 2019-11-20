@@ -5,4 +5,6 @@ import com.test.platform.hawkeye.domain.general.AutoCaseInterface;
 public interface AutoCaseInterfaceService {
     public int saveAutoCaseInterface(AutoCaseInterface autoCaseInterface);
 
+    public int deleteAutoCaseInterfaceByProjectId(int projectId);
+
 }
