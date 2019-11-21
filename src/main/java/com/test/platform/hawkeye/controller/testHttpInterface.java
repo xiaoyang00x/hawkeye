@@ -72,7 +72,7 @@ public class testHttpInterface {
         //matchService.matchnIcrement( 1 );
         //matchService.matchnIcrement( 2 );
         //matchService.matchnTotalQuantity( 1 );
-        matchService.matchnTotalQuantity( 2 );
+        matchService.matchnTotalQuantity( 1 );
 
         return "执行完成";
 

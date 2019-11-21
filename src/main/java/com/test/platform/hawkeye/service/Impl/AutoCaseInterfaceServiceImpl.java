@@ -29,7 +29,7 @@ public class AutoCaseInterfaceServiceImpl implements AutoCaseInterfaceService {
         for (AutoCaseInterface record :
                 autoCaseInterfaceList) {
             //逻辑删除
-            record.setIsDelete( (byte) 1 );
+            record.setIsDelete( 1 );
             AutoCaseInterfaceExample autoCaseInterfaceExampleIn = new AutoCaseInterfaceExample();
             autoCaseInterfaceExampleIn.createCriteria();
             autoCaseInterfaceExampleIn.createCriteria().andProjectIdEqualTo( projectId );
