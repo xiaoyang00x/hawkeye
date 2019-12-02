@@ -35,4 +35,10 @@ public class AutoCaseServiceImpl implements AutoCaseService {
         autoCaseExample.createCriteria().andPathEqualTo( path );
         return autoCaseMapper.selectByExampleWithBLOBs( autoCaseExample );
     }
+
+    @Override
+    public int deleteByProjectId(int projectId) {
+        return autoCaseMapper.updateIsDeleteByProjectId( projectId );
+    }
+
 }

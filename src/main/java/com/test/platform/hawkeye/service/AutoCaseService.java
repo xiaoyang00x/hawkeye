@@ -12,4 +12,7 @@ public interface AutoCaseService {
 
     public List<AutoCase> getAutoCaseByPath(String path);
 
+    public int deleteByProjectId(int projectId);
+
+
 }

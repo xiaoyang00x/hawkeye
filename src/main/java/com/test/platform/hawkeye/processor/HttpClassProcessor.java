@@ -35,6 +35,12 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
     @Autowired
     InterfaceService interfaceService;
 
+    private Integer projectId;
+
+    private Integer type;
+
+
+
 
     @Override
     public boolean isToBeProcessed(CtClass candidate) {
@@ -122,7 +128,7 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
 
                 //set projectId 后期修改为对应的项目id
-                in.setProjectId( 0 );
+                in.setProjectId( this.projectId );
 
                 //set method name
                 in.setName( set.getSimpleName() );
@@ -173,4 +179,19 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
     }
 
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 }

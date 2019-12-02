@@ -82,4 +82,7 @@ public interface AutoCaseMapper {
      * @mbg.generated
      */
     int updateByExample(@Param("record") AutoCase record, @Param("example") AutoCaseExample example);
+
+
+    int updateIsDeleteByProjectId(Integer projectId);
 }
