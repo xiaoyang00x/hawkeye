@@ -56,35 +56,43 @@ public class AutoClassProcessor extends AbstractProcessor<CtClass> {
 
         for (CtMethod ctMethod :
                 methodSet) {
-            //符合预期才进行插入
-            if (isExpect( ctMethod )) {
-                AutoCase autoCase = new AutoCase();
-                TestCaseListener testCaseListener = ctMethod.getAnnotation( TestCaseListener.class );
 
-                //set @TestCaseListener内容
-                autoCase.setCid( testCaseListener.cid() );
-                autoCase.setPath( testCaseListener.path() );
-                autoCase.setLevel( testCaseListener.level() );
-                autoCase.setAuthor( testCaseListener.author() );
-                autoCase.setDescription( testCaseListener.description() );
+            try {
 
-                //方法名
-                autoCase.setName( ctMethod.getSimpleName() );
+                if (isExpect( ctMethod )) {
+                    AutoCase autoCase = new AutoCase();
+                    TestCaseListener testCaseListener = ctMethod.getAnnotation( TestCaseListener.class );
 
-                //case内容
-                autoCase.setContent( ctMethod.getBody().toString() );
+                    //set @TestCaseListener内容
+                    autoCase.setCid( testCaseListener.cid() );
+                    autoCase.setPath( testCaseListener.path() );
+                    autoCase.setLevel( testCaseListener.level() );
+                    autoCase.setAuthor( testCaseListener.author() );
+                    autoCase.setDescription( testCaseListener.description() );
 
-                //关联项目id
-                autoCase.setProjectId( 1 );
+                    //方法名
+                    autoCase.setName( ctMethod.getSimpleName() );
 
+                    //case内容
+                    autoCase.setContent( ctMethod.getBody().toString() );
 
-                //创建时间
-                autoCase.setCreateTime( DateTimeUtil.getCurrentDateTIme() );
+                    //关联项目id
+                    autoCase.setProjectId( 1 );
 
 
-                ctMethodsList.add( autoCase );
-            } else
+                    //创建时间
+                    autoCase.setCreateTime( DateTimeUtil.getCurrentDateTIme() );
+
+
+                    ctMethodsList.add( autoCase );
+                } else
+                    continue;
+
+            } catch (Exception e) {
+                e.printStackTrace();
                 continue;
+            }
+            //符合预期才进行插入
 
         }
 

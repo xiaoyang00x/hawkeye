@@ -1,6 +1,7 @@
 package com.test.platform.hawkeye.processor;
 
 import com.test.platform.hawkeye.constant.ProcessorEnum;
+import com.test.platform.hawkeye.domain.general.ProcessorInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spoon.Launcher;
@@ -25,11 +26,13 @@ public class ProcessorFactory {
     AutoClassProcessor autoClassProcessor;
 
 
-    public void InitProcessor(ProcessorEnum processorEnum) throws IllegalAccessException, InstantiationException {
+    public void InitProcessor(ProcessorInfo processorInfo) throws IllegalAccessException, InstantiationException {
+
+
         SpoonAPI spoon = new Launcher();
 
         //添加需要解析的类文件或者文件夹 后续在参数化
-        spoon.addInputResource( "/Users/yangyu/code/test/benmu_auto_test/src/test/java/com/benmu" );
+        spoon.addInputResource( processorInfo.getScanPath() );
         //添加解析后输出的文件夹
         spoon.setSourceOutputDirectory( "target/spoon" );
         //运行解析
@@ -40,7 +43,7 @@ public class ProcessorFactory {
 
 
         //ClassProcessor类 集成抽象类 AbstractProcessor<E extends CtElement>，实现process方法
-        switch (processorEnum.getValue()) {
+        switch (processorInfo.getProcessorEnum().getValue()) {
             case "HTTP":
                 processingManager.addProcessor( httpClassProcessor );
                 break;

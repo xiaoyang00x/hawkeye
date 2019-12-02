@@ -3,6 +3,7 @@ package com.test.platform.hawkeye.controller;
 
 import com.test.platform.hawkeye.constant.ProcessorEnum;
 import com.test.platform.hawkeye.domain.general.AutoCase;
+import com.test.platform.hawkeye.domain.general.ProcessorInfo;
 import com.test.platform.hawkeye.processor.HttpClassProcessor;
 import com.test.platform.hawkeye.processor.ProcessorFactory;
 import com.test.platform.hawkeye.service.AutoCaseService;
@@ -35,10 +36,14 @@ public class testHttpInterface {
 
 
     @RequestMapping(value = "/testHttp", method = RequestMethod.GET)
-    public String requestmethodpost(@RequestParam int i) throws Exception {
-        logger.info( "进入到mytest,参数为i{}", i );
+    public String requestmethodpost(@RequestParam String scanPath) throws Exception {
+        logger.info( "进入到/testHttp,参数为scanPath{}", scanPath );
 
-        processorFactory.InitProcessor( ProcessorEnum.HTTP );
+        ProcessorInfo processorInfo = new ProcessorInfo();
+        processorInfo.setProcessorEnum( ProcessorEnum.HTTP );
+        processorInfo.setScanPath( scanPath );
+
+        processorFactory.InitProcessor( processorInfo );
 
         return "执行完成";
 
@@ -46,10 +51,16 @@ public class testHttpInterface {
 
 
     @RequestMapping(value = "/testAuto", method = RequestMethod.GET)
-    public String testAutoTest(@RequestParam int i) throws Exception {
-        logger.info( "进入到testAutoTest,参数为i{}", i );
+    public String testAutoTest(@RequestParam String scanPath) throws Exception {
+        logger.info( "进入到/testAuto,参数为scanPath{}", scanPath );
 
-        processorFactory.InitProcessor( ProcessorEnum.AUTO );
+
+        ProcessorInfo processorInfo = new ProcessorInfo();
+        processorInfo.setProcessorEnum( ProcessorEnum.AUTO );
+        processorInfo.setScanPath( scanPath );
+
+
+        processorFactory.InitProcessor( processorInfo );
 
         return "执行完成";
 
