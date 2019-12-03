@@ -15,4 +15,7 @@ public interface InterfaceService {
 
     public int updateIsAutoTrue(Interface interfaceList);
 
+    public int deleteByProjectId(int projectId);
+
+
 }

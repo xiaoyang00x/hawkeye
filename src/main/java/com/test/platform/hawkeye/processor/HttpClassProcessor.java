@@ -1,9 +1,13 @@
 package com.test.platform.hawkeye.processor;
 
+import com.test.platform.hawkeye.dao.InterfaceMapper;
 import com.test.platform.hawkeye.domain.general.Interface;
+import com.test.platform.hawkeye.domain.general.InterfaceExample;
 import com.test.platform.hawkeye.service.InterfaceService;
 import com.test.platform.hawkeye.service.UserService;
 import com.test.platform.hawkeye.utils.DateTimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +36,15 @@ import java.util.Set;
 @Transactional
 public class HttpClassProcessor extends AbstractProcessor<CtClass> {
 
+
+    protected static final Logger logger = LoggerFactory.getLogger( HttpClassProcessor.class );
+
+
     @Autowired
     InterfaceService interfaceService;
+
+    @Autowired
+    InterfaceMapper interfaceMapper;
 
     private Integer projectId;
 
@@ -173,7 +184,22 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
         //不用insert list方式，在逻辑层进行日志收集，记录插入失败项
         for (Interface record :
                 interfaceList) {
-            interfaceService.saveInterface( record );
+
+            if (this.type == 0) {
+                InterfaceExample interfaceExample = new InterfaceExample();
+                interfaceExample.createCriteria().andProjectIdEqualTo( record.getProjectId() ).
+                        andPathEqualTo( record.getPath() ).
+                        andNameEqualTo( record.getName() ).
+                        andIsDeleteEqualTo( (byte) 0 );
+                long count = interfaceMapper.countByExample( interfaceExample );
+                if (count > 0)
+                    logger.info( record.toString() + "已经存在,不插入" );
+                else
+                    interfaceService.saveInterface( record );
+            } else {
+                interfaceService.saveInterface( record );
+
+            }
 
         }
 

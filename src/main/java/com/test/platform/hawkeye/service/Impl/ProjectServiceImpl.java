@@ -20,4 +20,9 @@ public class ProjectServiceImpl implements ProjectService {
         projectExample.createCriteria().andIdEqualTo( ProjectId );
         return projectMapper.selectByExample( projectExample ).get( 0 );
     }
+
+    @Override
+    public int saveProject(Project project) {
+        return projectMapper.insertSelective( project );
+    }
 }

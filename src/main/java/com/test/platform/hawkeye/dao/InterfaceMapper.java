@@ -64,4 +64,8 @@ public interface InterfaceMapper {
      * @mbg.generated
      */
     int updateByExample(@Param("record") Interface record, @Param("example") InterfaceExample example);
+
+
+    int updateIsDeleteByProjectId(Integer projectId);
+
 }

@@ -55,5 +55,11 @@ public class InterfaceServiceImpl implements InterfaceService {
         return interfaceMapper.updateByExampleSelective( interfaceRecord, interfaceExample );
     }
 
+    @Override
+    public int deleteByProjectId(int projectId) {
+        return interfaceMapper.updateIsDeleteByProjectId( projectId );
+
+    }
+
 
 }

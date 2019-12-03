@@ -1,6 +1,8 @@
 package com.test.platform.hawkeye.domain.general;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 
 public class Project {
     /**
@@ -17,6 +19,7 @@ public class Project {
      *
      * @mbg.generated
      */
+    @NotNull(message = "名字不能为空")
     private String name;
 
     /**
@@ -33,6 +36,7 @@ public class Project {
      *
      * @mbg.generated
      */
+    @NotNull(message = "分支不能为空")
     private String branch;
 
     /**
@@ -41,6 +45,7 @@ public class Project {
      *
      * @mbg.generated
      */
+    @NotNull(message = "git地址不能为空")
     private String git;
 
     /**
@@ -97,6 +102,7 @@ public class Project {
      *
      * @mbg.generated
      */
+    @NotNull(message = "扫描路径不能为空")
     private String scanPath;
 
     /**
@@ -361,5 +367,24 @@ public class Project {
      */
     public void setScanPath(String scanPath) {
         this.scanPath = scanPath == null ? null : scanPath.trim();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", branch='" + branch + '\'' +
+                ", git='" + git + '\'' +
+                ", type=" + type +
+                ", operator='" + operator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", isDelete=" + isDelete +
+                ", teamGroup=" + teamGroup +
+                ", scanPath='" + scanPath + '\'' +
+                '}';
     }
 }

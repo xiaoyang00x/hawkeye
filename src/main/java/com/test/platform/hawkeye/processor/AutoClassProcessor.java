@@ -113,7 +113,7 @@ public class AutoClassProcessor extends AbstractProcessor<CtClass> {
 
         for (AutoCase autoCase :
                 ctMethodsList) {
-            if (type == 0) {
+            if (this.type == 0) {
                 AutoCaseExample autoCaseExample = new AutoCaseExample();
                 autoCaseExample.createCriteria().andCidEqualTo( autoCase.getCid() ).
                         andPathEqualTo( autoCase.getPath() ).
@@ -122,7 +122,7 @@ public class AutoClassProcessor extends AbstractProcessor<CtClass> {
                         andIsDeleteEqualTo( (byte) 0 );
                 long count = autoCaseMapper.countByExample( autoCaseExample );
                 if (count > 0)
-                    System.out.println( autoCase.toString() + "已经存在,不插入" );
+                    logger.info( autoCase.toString() + "已经存在,不插入" );
                 else
                     autoCaseMapper.insert( autoCase );
             } else {

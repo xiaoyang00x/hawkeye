@@ -4,17 +4,16 @@ package com.test.platform.hawkeye.controller;
 import com.test.platform.hawkeye.constant.ProcessorEnum;
 import com.test.platform.hawkeye.domain.general.AutoCase;
 import com.test.platform.hawkeye.domain.general.ProcessorInfo;
+import com.test.platform.hawkeye.domain.general.Project;
 import com.test.platform.hawkeye.processor.HttpClassProcessor;
 import com.test.platform.hawkeye.processor.ProcessorFactory;
 import com.test.platform.hawkeye.service.AutoCaseService;
 import com.test.platform.hawkeye.service.MatchService;
+import com.test.platform.hawkeye.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/testInterface")
 @RestController
@@ -34,33 +33,36 @@ public class testHttpInterface {
     @Autowired
     MatchService matchService;
 
+    @Autowired
+    ProjectService projectService;
 
-    @RequestMapping(value = "/testHttp", method = RequestMethod.GET)
-    public String requestmethodpost(@RequestParam String scanPath) throws Exception {
-        logger.info( "进入到/testHttp,参数为scanPath{}", scanPath );
 
-        ProcessorInfo processorInfo = new ProcessorInfo();
-        processorInfo.setProcessorEnum( ProcessorEnum.HTTP );
-        processorInfo.setScanPath( scanPath );
+    /**
+     * 扫描自动化接口方法
+     *
+     * @param projectId 项目id
+     * @param scanType  扫描形式, 0增量 1全量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/testScan", method = RequestMethod.POST)
+    public String testAutoTest(@RequestParam int projectId, @RequestParam int scanType) throws Exception {
+        logger.info( "进入到/testAuto,projectId:{} , scanType:{}", projectId, scanType );
 
-        processorFactory.InitProcessor( processorInfo );
+        Project project = projectService.getProjectById( projectId );
+
+        processorFactory.InitProcessor( project, scanType );
 
         return "执行完成";
 
     }
 
 
-    @RequestMapping(value = "/testAuto", method = RequestMethod.GET)
-    public String testAutoTest(@RequestParam String scanPath) throws Exception {
-        logger.info( "进入到/testAuto,参数为scanPath{}", scanPath );
+    @RequestMapping(value = "/saveProject", method = RequestMethod.POST)
+    public String saveProject(@RequestBody Project project) throws Exception {
+        logger.info( "进入到/saveProject,project:{},", project.toString() );
 
-
-        ProcessorInfo processorInfo = new ProcessorInfo();
-        processorInfo.setProcessorEnum( ProcessorEnum.AUTO );
-        processorInfo.setScanPath( scanPath );
-
-
-        processorFactory.InitProcessor( processorInfo );
+        projectService.saveProject( project );
 
         return "执行完成";
 
@@ -73,6 +75,13 @@ public class testHttpInterface {
 
         AutoCase autoCase = autoCaseService.getAutoCaseById( i );
         return autoCase.toString();
+
+    }
+
+    @RequestMapping(value = "/getProject", method = RequestMethod.GET)
+    public String GetProject(@RequestParam int i) throws Exception {
+        logger.info( "进入到getAuto,参数为i{}", i );
+        return projectService.getProjectById( i ).toString();
 
     }
 
