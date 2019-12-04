@@ -1,45 +1,58 @@
 package com.test.platform.hawkeye.domain.general;
 
-import com.test.platform.hawkeye.constant.ProcessorEnum;
 
+/**
+ * 介质类
+ */
 public class ProcessorInfo {
+    private Project project;
 
-    private ProcessorEnum processorEnum;
+    private Integer scanType;
 
-    private String processorTargePath;
+    private String operator;
 
-    private String scanPath;
+    private Integer analysisId;
 
-    public ProcessorEnum getProcessorEnum() {
-        return processorEnum;
+
+    public Project getProject() {
+        return project;
     }
 
-    public void setProcessorEnum(ProcessorEnum processorEnum) {
-        this.processorEnum = processorEnum;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public String getProcessorTargePath() {
-        return processorTargePath;
+    public Integer getScanType() {
+        return scanType;
     }
 
-    public void setProcessorTargePath(String processorTargePath) {
-        this.processorTargePath = processorTargePath;
+    public void setScanType(Integer scanType) {
+        this.scanType = scanType;
     }
 
-    public String getScanPath() {
-        return scanPath;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setScanPath(String scanPath) {
-        this.scanPath = scanPath;
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public Integer getAnalysisId() {
+        return analysisId;
+    }
+
+    public void setAnalysisId(Integer analysisId) {
+        this.analysisId = analysisId;
     }
 
     @Override
     public String toString() {
         return "ProcessorInfo{" +
-                "processorEnum=" + processorEnum +
-                ", processorTargePath='" + processorTargePath + '\'' +
-                ", scanPath='" + scanPath + '\'' +
+                "project=" + project +
+                ", scanType=" + scanType +
+                ", operator='" + operator + '\'' +
+                ", analysisId='" + analysisId + '\'' +
                 '}';
     }
 }

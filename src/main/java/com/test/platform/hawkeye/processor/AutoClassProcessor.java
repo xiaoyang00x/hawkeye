@@ -2,23 +2,21 @@ package com.test.platform.hawkeye.processor;
 
 
 import com.httputil.apitest.testcase.TestCaseListener;
-import com.test.platform.hawkeye.controller.testHttpInterface;
 import com.test.platform.hawkeye.dao.AutoCaseMapper;
 import com.test.platform.hawkeye.domain.general.AutoCase;
 import com.test.platform.hawkeye.domain.general.AutoCaseExample;
 import com.test.platform.hawkeye.service.AutoCaseService;
 import com.test.platform.hawkeye.utils.DateTimeUtil;
-import org.apache.ibatis.jdbc.SQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 import spoon.SpoonException;
 import spoon.processing.AbstractProcessor;
-import spoon.processing.ProcessorProperties;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 
@@ -37,10 +35,6 @@ import java.util.Set;
 public class AutoClassProcessor extends AbstractProcessor<CtClass> {
 
     protected static final Logger logger = LoggerFactory.getLogger( AutoClassProcessor.class );
-
-
-    @Autowired
-    AutoCaseMapper autoCaseMapper;
 
     @Autowired
     AutoCaseService autoCaseService;
@@ -101,7 +95,6 @@ public class AutoClassProcessor extends AbstractProcessor<CtClass> {
                     ctMethodsList.add( autoCase );
                     e.printStackTrace();
                 } catch (Exception e) {
-                    System.out.println( "Exception" );
                     e.printStackTrace();
                     continue;
                 }
@@ -114,33 +107,18 @@ public class AutoClassProcessor extends AbstractProcessor<CtClass> {
         for (AutoCase autoCase :
                 ctMethodsList) {
             if (this.type == 0) {
-                AutoCaseExample autoCaseExample = new AutoCaseExample();
-                autoCaseExample.createCriteria().andCidEqualTo( autoCase.getCid() ).
-                        andPathEqualTo( autoCase.getPath() ).
-                        andNameEqualTo( autoCase.getName() ).
-                        andProjectIdEqualTo( autoCase.getProjectId() ).
-                        andIsDeleteEqualTo( (byte) 0 );
-                long count = autoCaseMapper.countByExample( autoCaseExample );
+                long count = autoCaseService.countNoDeleteByExample( autoCase );
                 if (count > 0)
                     logger.info( autoCase.toString() + "已经存在,不插入" );
                 else
-                    autoCaseMapper.insert( autoCase );
+                    autoCaseService.saveAutocase( autoCase );
             } else {
-                autoCaseMapper.insert( autoCase );
+                autoCaseService.saveAutocase( autoCase );
 
             }
 
         }
 
-    }
-
-
-    public AutoCaseMapper getAutoCaseMapper() {
-        return autoCaseMapper;
-    }
-
-    public void setAutoCaseMapper(AutoCaseMapper autoCaseMapper) {
-        this.autoCaseMapper = autoCaseMapper;
     }
 
     public Integer getProjectId() {

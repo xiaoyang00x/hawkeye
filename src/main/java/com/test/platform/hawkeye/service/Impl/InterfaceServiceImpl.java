@@ -61,5 +61,15 @@ public class InterfaceServiceImpl implements InterfaceService {
 
     }
 
+    @Override
+    public long countNoDeleteByExample(Interface record) {
+        InterfaceExample interfaceExample = new InterfaceExample();
+        interfaceExample.createCriteria().andProjectIdEqualTo( record.getProjectId() ).
+                andPathEqualTo( record.getPath() ).
+                andNameEqualTo( record.getName() ).
+                andIsDeleteEqualTo( (byte) 0 );
+        return interfaceMapper.countByExample( interfaceExample );
+    }
+
 
 }

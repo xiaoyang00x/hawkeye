@@ -1,12 +1,20 @@
 package com.test.platform.hawkeye.processor;
 
+import com.test.platform.hawkeye.domain.general.ProcessorInfo;
 import com.test.platform.hawkeye.domain.general.Project;
+import com.test.platform.hawkeye.domain.general.ProjectAnalysis;
 import com.test.platform.hawkeye.service.AutoCaseService;
 import com.test.platform.hawkeye.service.InterfaceService;
+import com.test.platform.hawkeye.service.ProjectAnalysisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spoon.Launcher;
 import spoon.SpoonAPI;
+import spoon.SpoonException;
 import spoon.processing.ProcessingManager;
 import spoon.reflect.factory.Factory;
 import spoon.support.QueueProcessingManager;
@@ -17,6 +25,8 @@ import spoon.support.QueueProcessingManager;
  */
 @Service
 public class ProcessorFactory {
+
+    protected static final Logger logger = LoggerFactory.getLogger( ProcessorFactory.class );
 
 
     @Autowired
@@ -31,25 +41,41 @@ public class ProcessorFactory {
     @Autowired
     InterfaceService interfaceService;
 
+    @Autowired
+    ProjectAnalysisService projectAnalysisService;
+
 
     /**
      * 初始化processor
+     * 异步方法,扫描中间状态变更
      *
-     * @param project  项目id
-     * @param scanType 扫描类型 0增量、1全量
+     * @param processorInfo 介质参数,根据属性判断分支逻辑
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public void InitProcessor(Project project, Integer scanType) throws IllegalAccessException, InstantiationException {
+    @Async
+    public void InitProcessor(ProcessorInfo processorInfo) throws IllegalAccessException, InstantiationException {
+
+        Project project = processorInfo.getProject();
+        int scanType = processorInfo.getScanType();
+
+        logger.info( "进入到ProcessorFactory.InitProcessor方法中,project:{} , scanType:{}, analysisId:{}", project.toString(), scanType, processorInfo.getAnalysisId() );
 
 
         SpoonAPI spoon = new Launcher();
 
         //添加需要解析的类文件或者文件夹 后续在参数化
-        spoon.addInputResource( project.getScanPath() );
+        spoon.addInputResource( processorInfo.getProject().getScanPath() );
 
         //解析后目标文件
-        spoon.setSourceOutputDirectory( "target/spoon" );
+        spoon.setSourceOutputDirectory( "target/spoon/" + processorInfo.getAnalysisId() );
+        logger.info( "目标路径：" + "target/spoon/:{}", processorInfo.getAnalysisId() );
+
+
+        //扫描前修改状态
+        ProjectAnalysis projectAnalysis = projectAnalysisService.getProjectAnalysisById( processorInfo.getAnalysisId() );
+        projectAnalysis.setStatus( 1 );
+        projectAnalysisService.updateProjectAnalysis( projectAnalysis );
 
 
         //运行解析
@@ -60,7 +86,8 @@ public class ProcessorFactory {
 
 
         //ClassProcessor类 集成抽象类 AbstractProcessor<E extends CtElement>，实现process方法
-        switch (project.getType()) {
+        //project.type 0为http、1位rpc、2为自动化用例
+        switch (processorInfo.getProject().getType()) {
             case 0:
                 httpClassProcessor.setType( scanType );
                 httpClassProcessor.setProjectId( project.getId() );
@@ -84,6 +111,10 @@ public class ProcessorFactory {
 
         processingManager.process( factory.Class().getAll() );
 
+
+        //扫描后修改状态
+        projectAnalysis.setStatus( 2 );
+        projectAnalysisService.updateProjectAnalysis( projectAnalysis );
 
     }
 

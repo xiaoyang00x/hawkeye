@@ -20,7 +20,6 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.reference.CtTypeReference;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -43,14 +42,9 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
     @Autowired
     InterfaceService interfaceService;
 
-    @Autowired
-    InterfaceMapper interfaceMapper;
-
     private Integer projectId;
 
     private Integer type;
-
-
 
 
     @Override
@@ -68,7 +62,6 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
     @Override
     public void process(CtClass ctClass) {
 
-        String path = null;
 
         List<Interface> interfaceList = new ArrayList<Interface>();
         String classAnnotation = "";
@@ -186,12 +179,7 @@ public class HttpClassProcessor extends AbstractProcessor<CtClass> {
                 interfaceList) {
 
             if (this.type == 0) {
-                InterfaceExample interfaceExample = new InterfaceExample();
-                interfaceExample.createCriteria().andProjectIdEqualTo( record.getProjectId() ).
-                        andPathEqualTo( record.getPath() ).
-                        andNameEqualTo( record.getName() ).
-                        andIsDeleteEqualTo( (byte) 0 );
-                long count = interfaceMapper.countByExample( interfaceExample );
+                long count = interfaceService.countNoDeleteByExample( record );
                 if (count > 0)
                     logger.info( record.toString() + "已经存在,不插入" );
                 else

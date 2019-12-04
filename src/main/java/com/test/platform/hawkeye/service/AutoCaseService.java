@@ -14,5 +14,7 @@ public interface AutoCaseService {
 
     public int deleteByProjectId(int projectId);
 
+    public long countNoDeleteByExample(AutoCase autoCase);
+
 
 }

@@ -41,4 +41,16 @@ public class AutoCaseServiceImpl implements AutoCaseService {
         return autoCaseMapper.updateIsDeleteByProjectId( projectId );
     }
 
+    @Override
+    public long countNoDeleteByExample(AutoCase autoCase) {
+        AutoCaseExample autoCaseExample = new AutoCaseExample();
+        autoCaseExample.createCriteria().andCidEqualTo( autoCase.getCid() ).
+                andPathEqualTo( autoCase.getPath() ).
+                andNameEqualTo( autoCase.getName() ).
+                andProjectIdEqualTo( autoCase.getProjectId() ).
+                andIsDeleteEqualTo( (byte) 0 );
+        return autoCaseMapper.countByExample( autoCaseExample );
+
+    }
+
 }

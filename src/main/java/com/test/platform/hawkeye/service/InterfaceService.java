@@ -17,5 +17,8 @@ public interface InterfaceService {
 
     public int deleteByProjectId(int projectId);
 
+    public long countNoDeleteByExample(Interface record);
+
+
 
 }
