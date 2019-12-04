@@ -151,4 +151,17 @@ public class testHttpInterface {
 
     }
 
+
+    @RequestMapping(value = "/updateProject", method = RequestMethod.GET)
+    public String updateProject() throws Exception {
+        logger.info( "进入到/updateProject" );
+
+        Project project = projectService.getProjectById( 3 );
+        project.setOperator( "杨宇哈哈哈" );
+        projectService.updateProject( project );
+
+        return "执行完成";
+    }
+
+
 }
